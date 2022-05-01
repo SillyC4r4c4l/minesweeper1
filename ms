@@ -89,12 +89,12 @@ namespace higherlower
                             int[] myRandoms = new int[4];
                             for (int n = 0; n < 2; n++)
                             {
-                                myRandoms[i] = rand.Next(-3, 1);
-                                myRandoms[i + 1] = rand.Next(myRandoms[i] + 1, 4);
+                                myRandoms[n] = rand.Next(-3, 1);
+                                myRandoms[n+ 1] = rand.Next(myRandoms[n] + 1, 4);
                             }
                             for (int x = myRandoms[0]; x <= myRandoms[1]; x++)
                             {
-                                for (int y = rand.Next(-3, 1); y <= 1; y++)
+                                for (int y = myRandoms[2]; y <= myRandoms[3]; y++)
                                 {
                                     try {
                                         isBomb[ii + y, jj+x] = false;
@@ -104,7 +104,23 @@ namespace higherlower
 
                                 }
                             }
-                           firstClickMade = true;
+                            
+                            /*
+                            for (int x = -1; x <= 1; x++)
+                            {
+                                for (int y = -1; y <= 1; y++)
+                                {
+                                    try
+                                    {
+                                        isBomb[ii + y, jj + x] = false;
+                                        Clicked(ii + y, jj + x);
+                                    }
+                                    catch (IndexOutOfRangeException) { }
+
+                                }
+                            }
+                            */
+                            firstClickMade = true;
                         }
                         
                         if (isBomb[ii,jj] == true)
