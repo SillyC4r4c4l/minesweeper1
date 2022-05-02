@@ -16,7 +16,9 @@ namespace higherlower
         static int rows = 15;
         static int cols = 15;
         static bool[,] isBomb = new bool[rows, cols];
+        static bool[,] clickedBefore = new bool[rows, cols];
         public int[] myRandoms = new int[4];
+        public bool addingFlag = false;
         Button[,] btnControls = new Button[rows, cols];
         private void Clicked(int x, int y)
         {
@@ -37,6 +39,7 @@ namespace higherlower
             }
             btnControls[x, y].BackColor = Color.LightGreen;
             btnControls[x, y].Text = adj.ToString();
+            clickedBefore[x, y] = true;
 
         }
         public Minesweeper()
@@ -105,6 +108,25 @@ namespace higherlower
                             */
                             firstClickMade = true;
                         }
+                        if (addingFlag == true)
+                        {
+                            if (btnControls[ii, jj].Text == "⚑") { 
+                                if (clickedBefore[ii,jj] == true)
+                                {
+                                    Clicked(ii, jj);
+                                }
+                                else
+                                {
+                                    btnControls[ii, jj].Text = "";
+                                }
+                            }
+                            else
+                            {
+                                btnControls[ii, jj].Text = "⚑";
+                            }
+                            addingFlag = false;
+                            btnAddFlag.BackColor = Color.Gray;
+                        }
                         
                         if (isBomb[ii,jj] == true)
                         {
@@ -133,6 +155,12 @@ namespace higherlower
                     };
                 } 
             }
+        }
+
+        private void btnAddFlag_Click(object sender, EventArgs e)
+        {
+            addingFlag = true;
+            btnAddFlag.BackColor = Color.Orange;
         }
     }
 }
