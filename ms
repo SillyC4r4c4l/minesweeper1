@@ -27,6 +27,8 @@ namespace higherlower
             {
                 for (int n2 = -1; n2 <= 1; n2++)
                 {
+                    if (n1 == 0 && n2 == 0)  // Skip the middle item (it's our current item)
+                        continue;
                     try
                     {
                         if (isBomb[x + n2, y + n1])
@@ -110,7 +112,7 @@ namespace higherlower
                         }
                         if (addingFlag == true)
                         {
-                            if (btnControls[ii, jj].Text == "⚑") { 
+                            if (btnControls[ii, jj].Text == "F") { 
                                 if (clickedBefore[ii,jj] == true)
                                 {
                                     Clicked(ii, jj);
@@ -122,10 +124,11 @@ namespace higherlower
                             }
                             else
                             {
-                                btnControls[ii, jj].Text = "⚑";
+                                btnControls[ii, jj].Text = "F";
                             }
                             addingFlag = false;
                             btnAddFlag.BackColor = Color.Gray;
+
                         }
                         
                         if (isBomb[ii,jj] == true)
