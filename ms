@@ -16,6 +16,7 @@ namespace higherlower
         static int rows = 15;
         static int cols = 15;
         static bool[,] isBomb = new bool[rows, cols];
+        static bool[,] firstClickExplosion = new bool[rows, cols];
         static bool[,] clickedBefore = new bool[rows, cols];
         public int[] myRandoms = new int[4];
         public bool addingFlag = false;
@@ -75,50 +76,11 @@ namespace higherlower
                     int jj = j;
                     btn.Click += (sender, args) =>
                     {
-                        //int adjBombs = 0;
-                        if (firstClickMade == false)
-                        {
-
-                            for (int x = rand.Next(-2, 1); x <= rand.Next(0, 3); x++)                    //WITH RANDOMS
-                            {
-                                for (int y = rand.Next(-2, 1); y <= rand.Next(0, 3); y++)
-                                {
-                                    try
-                                    {
-                                        isBomb[ii + y, jj + x] = false;
-
-                                    }
-                                    catch (IndexOutOfRangeException) { }
-
-                                }
-                            }
-                            foreach (bool i in isBomb)
-                            {
-
-                            }
-
-
-                            /*
-                            for (int x = -1; x <= 1; x++)                       NORMAL GRID
-                            {
-                                for (int y = -1; y <= 1; y++)
-                                {
-                                    try
-                                    {
-                                        isBomb[ii + y, jj + x] = false;
-                                        Clicked(ii + y, jj + x);
-                                    }
-                                    catch (IndexOutOfRangeException) { }
-
-                                }
-                            }
-                            */
-                            firstClickMade = true;
-                        }
                         if (addingFlag == true)
                         {
-                            if (btnControls[ii, jj].Text == "F") { 
-                                if (clickedBefore[ii,jj] == true)
+                            if (btnControls[ii, jj].Text == "⚑")
+                            {
+                                if (clickedBefore[ii, jj] == true)
                                 {
                                     Clicked(ii, jj);
                                 }
@@ -129,36 +91,84 @@ namespace higherlower
                             }
                             else
                             {
-                                btnControls[ii, jj].Text = "F";
+                                btnControls[ii, jj].Text = "⚑";
                             }
                             addingFlag = false;
                             btnAddFlag.BackColor = Color.Gray;
 
                         }
-                        
-                        if (isBomb[ii,jj] == true)
-                        {
-                            MessageBox.Show("kaboom");
-                        }
                         else
                         {
-                            /*for (int x = -1; x <= 1; x++)
+                            if (firstClickMade == false)
                             {
-                                for (int y = -1; y <= 1; y++)
+
+                                for (int x = rand.Next(-2, 1); x <= rand.Next(0, 3); x++)                    //WITH RANDOMS
                                 {
-                                    try
+                                    for (int y = rand.Next(-2, 1); y <= rand.Next(0, 3); y++)
                                     {
-                                        if (isBomb[ii + y, jj + x])
+                                        try
                                         {
-                                            adjBombs++;
+                                            isBomb[ii + y, jj + x] = false;
+                                            firstClickExplosion[ii + y, jj + x] = true;
+
+                                        }
+                                        catch (IndexOutOfRangeException) { }
+
+                                    }
+                                }
+                                for (int a = 0; a < rows; a++)
+                                {
+                                    for (int b = 0; b < rows; b++)
+                                    {
+                                        if (firstClickExplosion[a, b] == true)
+                                        {
+                                            Clicked(a, b);
                                         }
                                     }
-                                    catch (IndexOutOfRangeException) { }
+
                                 }
+                                /*
+                                for (int x = -1; x <= 1; x++)                       NORMAL GRID
+                                {
+                                    for (int y = -1; y <= 1; y++)
+                                    {
+                                        try
+                                        {
+                                            isBomb[ii + y, jj + x] = false;
+                                            Clicked(ii + y, jj + x);
+                                        }
+                                        catch (IndexOutOfRangeException) { }
+
+                                    }
+                                }
+                                */
+                                firstClickMade = true;
                             }
-                            //btn.Text = adjBombs.ToString();
-                            */
-                            Clicked(ii, jj);
+
+                            if (isBomb[ii, jj] == true)
+                            {
+                                MessageBox.Show("kaboom");
+                            }
+                            else
+                            {
+                                /*for (int x = -1; x <= 1; x++)
+                                {
+                                    for (int y = -1; y <= 1; y++)
+                                    {
+                                        try
+                                        {
+                                            if (isBomb[ii + y, jj + x])
+                                            {
+                                                adjBombs++;
+                                            }
+                                        }
+                                        catch (IndexOutOfRangeException) { }
+                                    }
+                                }
+                                //btn.Text = adjBombs.ToString();
+                                */
+                                Clicked(ii, jj);
+                            }
                         }
                     };
                 } 
