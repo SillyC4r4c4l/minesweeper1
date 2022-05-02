@@ -27,14 +27,15 @@ namespace higherlower
             {
                 for (int n2 = -1; n2 <= 1; n2++)
                 {
-                    if (n1 == 0 && n2 == 0)  // Skip the middle item (it's our current item)
-                        continue;
                     try
                     {
-                        if (isBomb[x + n2, y + n1])
-                        {
-                            adj++;
-                        }
+                       if (isBomb[x + n2, y + n1])
+                       {
+ 
+                            
+                                adj++;
+                            
+                       }   
                     }
                     catch (IndexOutOfRangeException) { }
                 }
@@ -77,21 +78,25 @@ namespace higherlower
                         //int adjBombs = 0;
                         if (firstClickMade == false)
                         {
-                            
 
                             for (int x = rand.Next(-2, 1); x <= rand.Next(0, 3); x++)                    //WITH RANDOMS
-                             {
-                                 for (int y = rand.Next(-2,1); y <= rand.Next(0,3); y++)
-                                 {
-                                     try {
+                            {
+                                for (int y = rand.Next(-2, 1); y <= rand.Next(0, 3); y++)
+                                {
+                                    try
+                                    {
                                         isBomb[ii + y, jj + x] = false;
-                                        Clicked(ii + y, jj + x);
-                                    }
-                                     catch (IndexOutOfRangeException) { }
 
-                                 }
-                             }
-                             
+                                    }
+                                    catch (IndexOutOfRangeException) { }
+
+                                }
+                            }
+                            foreach (bool i in isBomb)
+                            {
+
+                            }
+
 
                             /*
                             for (int x = -1; x <= 1; x++)                       NORMAL GRID
