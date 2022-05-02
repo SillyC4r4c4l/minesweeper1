@@ -16,20 +16,8 @@ namespace higherlower
         static int rows = 15;
         static int cols = 15;
         static bool[,] isBomb = new bool[rows, cols];
+        public int[] myRandoms = new int[4];
         Button[,] btnControls = new Button[rows, cols];
-        /*public int StartAndEnd(int n,int chooseFrom,int result)
-        {
-            int myResult = n ==chooseFrom ? 0 : result;
-            return myResult;
-        }
-        */
-        /*/private void Clicked(int x,int y, int adj)
-        {
-            btnControls[x,y].BackColor = Color.LightGreen;
-            btnControls[x,y].Text = adj.ToString();
-
-        }
-        /*/
         private void Clicked(int x, int y)
         {
             int adj = 0;
@@ -58,10 +46,8 @@ namespace higherlower
             bool firstClickMade = false;
             for (int x = 0; x < 20; x++)
             {
-                isBomb[rand.Next(0,rows), rand.Next(0,cols)] = true;
+                isBomb[rand.Next(0, rows), rand.Next(0, cols)] = true;
             }
-        
-           
             for (int i = 0; i < rows; i++)
             {
                 for (int j = 0; j < cols; j++)
@@ -86,27 +72,24 @@ namespace higherlower
                         //int adjBombs = 0;
                         if (firstClickMade == false)
                         {
-                            int[] myRandoms = new int[4];
-                            for (int n = 0; n < 2; n++)
-                            {
-                                myRandoms[n] = rand.Next(-3, 1);
-                                myRandoms[n+ 1] = rand.Next(myRandoms[n] + 1, 4);
-                            }
-                            for (int x = myRandoms[0]; x <= myRandoms[1]; x++)
-                            {
-                                for (int y = myRandoms[2]; y <= myRandoms[3]; y++)
-                                {
-                                    try {
-                                        isBomb[ii + y, jj+x] = false;
-                                        Clicked(ii+y, jj+x);
-                                    }
-                                    catch (IndexOutOfRangeException) { }
-
-                                }
-                            }
                             
+
+                            for (int x = rand.Next(-2, 1); x <= rand.Next(0, 3); x++)                    //WITH RANDOMS
+                             {
+                                 for (int y = rand.Next(-2,1); y <= rand.Next(0,3); y++)
+                                 {
+                                     try {
+                                        isBomb[ii + y, jj + x] = false;
+                                        Clicked(ii + y, jj + x);
+                                    }
+                                     catch (IndexOutOfRangeException) { }
+
+                                 }
+                             }
+                             
+
                             /*
-                            for (int x = -1; x <= 1; x++)
+                            for (int x = -1; x <= 1; x++)                       NORMAL GRID
                             {
                                 for (int y = -1; y <= 1; y++)
                                 {
